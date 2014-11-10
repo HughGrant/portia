@@ -1,0 +1,55 @@
+<div class="panel-primary" style="margin-top: 10px;">
+
+<div class="panel-heading">
+  <div class="btn-group col-md-3">
+    <button type="button" class="btn btn-success" ng-click="create_row()">
+      <span class="glyphicon glyphicon-plus"></span>
+    </button>
+    <button type="button" class="btn btn-danger" ng-click="delete_checked()">
+      <span class="glyphicon glyphicon-trash"></span>
+    </button>
+  </div>
+
+  <div class="input-group col-md-6">
+    <span class="input-group-addon">
+    <select ng-model="ffield">
+      <option value="">过滤条件</option>
+      <option ng-repeat="meta in metas" value="{{meta.name}}">{{meta.title}}</option>
+    </select>
+    </span>
+    <input ng-model="fvalue" type="text" class="form-control">
+    <span class="input-group-addon">
+      <span class="glyphicon glyphicon-filter"></span>
+    </span>
+  </div>
+
+</div>
+
+<table class="table table-hover table-bordered text-center table-responsive" style="margin-bottom:0px;">
+  <thead>
+    <tr>
+      <th class="text-center">
+        <input type="checkbox" ng-click="check_all()" ng-model="check" alt="全选">
+      </th>
+      <th class="text-center" ng-repeat="meta in metas">
+        {{meta.title}}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="record in records | field_value:ffield:fvalue:metas track by record._id.$oid"
+        ng-dblclick="edit_row(record)"
+        ng-class="{true:'warning'}[record.check]">
+      <td><input type="checkbox" ng-model="record.check"></td>
+      <td ng-repeat="meta in metas">
+          {{record[meta.name]}}
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<portia-pagination row="row" limit="limit" current="current"></portia-pagination>
+
+<portia-form model-name="{{model_name}}" record="temp" metas="metas"></portia-form>
+
+</div>

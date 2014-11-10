@@ -1,0 +1,16 @@
+<div class="col-md-10">
+  <div class="row">
+    <ul class="nav nav-tabs" role="tablist">
+      <li ng-repeat="menu in menus"
+          ng-class="{active:is_current($index)}"
+          ng-click="set_current($index)">
+        <a ui-sref="product_manage.{{menu.id}}">{{menu.name}}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="tab-content">
+      <div ui-view></div>
+    </div>
+  </div>
+</div>

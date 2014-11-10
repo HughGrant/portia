@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN" ng-app="PortiaApp" ng-csp>
+  <head>
+    <meta charset="UTF-8">
+    <title>Future starts here</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bs.css">
+    <link rel="stylesheet" href="ngcsp.css">
+  </head>
+  <body style="margin-top:5px;">
+    <div class="container">
+      <div class="col-md-2 list-group text-center" ng-controller="NavCtrl">
+        <a ng-repeat="nav in navs"
+           ng-class="{active:is_current($index)}"
+           ui-sref="{{nav.id}}"
+           ng-click="set_current($index)"
+           class="list-group-item">{{nav.title}}</a>
+      </div>
+
+      <div ui-view>加载中, 请稍后......</div>
+    </div>
+  <script src="jquery.js"></script>
+  <script src="bs.js"></script>
+  <script src="config.js"></script>
+  <script src="angular.js"></script>
+  <script src="angular-ui-router.min.js"></script>
+  <script src="angular-resource.min.js"></script>
+  <script src="app.js"></script>
+  <script src="tags.js"></script>
+  <script src="services.js"></script>
+  <script src="product.js"></script>
+  </body>
+</html>

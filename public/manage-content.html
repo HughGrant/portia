@@ -1,0 +1,20 @@
+<div class="col-md-10">
+  <div class="row">
+    <ul class="nav nav-tabs" role="tablist">
+      <li ng-repeat="menu in menus"
+          ng-class="{true:'active'}[$first]"
+          role="tab">
+        <a href="#{{menu.id}}" role="tab" data-toggle="tab">{{menu.name}}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="tab-content">
+    <div class="row tab-pane fade"
+         id="{{menu.id}}"
+         ng-repeat="menu in menus"
+         ng-class="{true:'active in'}[$first]">
+      <portia-grid model-name="{{menu.model}}"></portia-grid>    
+    </div>
+  </div>
+</div>
