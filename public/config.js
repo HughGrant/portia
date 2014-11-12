@@ -28,14 +28,70 @@ var model_insert = function(model_name, data, success_msg, error_msg) {
   })
 }
 
+var setup_keywords_ui = function() {
+  $('#productKeyword').after('<button id="get_keywords" type="button" class="ui-button ui-button-normal ui-button-big">获取关键字</button>')
+  $('#productKeyword').after('<button id="clear_keywords" type="button" class="ui-button ui-button-normal ui-button-big">清除关键字</button>')
+  
+  
+  $('#get_keywords').click(get_keywords)
+  $('#clear_keywords').click(function() {
+    $('#productKeyword').val('')
+    $('#keywords2').val('')
+    $('#keywords3').val('')
+  })
+}
+
+var set_keywords = function(data) {
+  if (data.success == true) {
+    
+    var key1 = $('#productKeyword')
+    var key2 = $('#keywords2')
+    var key3 = $('#keywords3')
+    
+    if ($.trim(key1.val()) == '') { key1.val(data.keywords.shift()) }
+    if ($.trim(key2.val()) == '') { key2.val(data.keywords.shift()) }
+    if ($.trim(key3.val()) == '') { key3.val(data.keywords.shift()) }
+
+  } else {
+    var f = confirm(data.message + '\n\n是否现在去采集?')
+    if (f) {
+      open_url(SEARCH_HOT_KEYWORD_URL)
+    }
+  }
+}
+
+var open_url = function(url) {
+  chrome.runtime.sendMessage({action: 'push_img', url: url})
+}
+
+var get_keywords = function() {
+  var name = $.trim($('#productName').val())
+  if (name == '') {
+    $('#productName').css('border', '2px solid red')
+    return false
+  }
+
+  var key1 = $.trim($('#productKeyword').val())
+  var key2 = $.trim($('#keywords2').val())
+  var key3 = $.trim($('#keywords3').val())
+  var count = 0
+  if (key1 == '') { count++ }
+  if (key2 == '') { count++ }
+  if (key3 == '') { count++ }
+  if (count == 0) { return false }
+
+  var info = {action:'push_keywords', name:name, count:count}
+  chrome.runtime.sendMessage(info)
+}
+
 var product_upload = function(product) {
   chrome.runtime.sendMessage({action: 'upload_product', product: product})
 }
 
 var push_img = function(url, name) {
-  var new_url = DOMAIN + 'push_img?url=' + url + '&name=' + name
-  var info = {action:'push_img', url:new_url}
-  chrome.runtime.sendMessage(info)
+  console.log(url)
+  var url = DOMAIN + 'push_img?url=' + url + '&name=' + name
+  // open_url(url)
 }
 
 var DOMAIN = 'http://localhost:4567/'

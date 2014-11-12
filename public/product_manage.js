@@ -14,7 +14,11 @@ function add_new_upload() {
 	})
 
 	$('.new_upload').click(function() {
-		// todo
+		var link = $(this).parents('.product-item-div').find('.list-title > div > a')
+		var url = 'http://www.alibaba.com/product-detail/'
+		url += $.trim(link.text()).split(' ').join('-')
+		url += '_' + link.attr('href').split('=')[1] + '.html'
+		open_url(url)
 	})
 }
 

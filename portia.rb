@@ -31,7 +31,7 @@ class Portia < Sinatra::Base
 		weights = skws.map { |w| Utils::weight_search_keyword(w, params['name']) }
 		if weights.max != 0
 			skw = skws[weights.rindex(weights.max)]
-			kws = db.find({search_keyword: skw}).sort('count').limit(3)
+			kws = db.find({search_keyword: skw}).sort('count').limit(params['count'].to_i)
 			data[:keywords] = []
 			data[:success] = true
 			kws.each do |kw|

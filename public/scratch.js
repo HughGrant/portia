@@ -28,7 +28,8 @@ function scratch() {
 
   product.summary = $('p.description')[0].innerText
 
-  var priceInfo = $('td[itemprop="offers"]')[0].innerText
+  var priceInfo = $('th:contains("FOB Price:") + td')[0].innerText
+  console.log(priceInfo)
   if (priceInfo == "Get Latest Price") {
     product.price_range_min = 0
     product.price_range_max = 0

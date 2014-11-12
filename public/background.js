@@ -8,8 +8,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   }
 
   if (request.action == 'push_keywords') {
-    sendResponse({keywords:'testing keywords'})
-    $.get(DOMAIN + 'push_keywords', {name:request.name}).done(function(kws) {
+    var params = {name:request.name, count:request.count}
+    $.get(DOMAIN + 'push_keywords', params).done(function(kws) {
       chrome.tabs.sendMessage(sender.tab.id, {action:'set_keywords', data:kws})
     })
   }
