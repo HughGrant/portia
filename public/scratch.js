@@ -29,7 +29,6 @@ function scratch() {
   product.summary = $('p.description')[0].innerText
 
   var priceInfo = $('th:contains("FOB Price:") + td')[0].innerText
-  console.log(priceInfo)
   if (priceInfo == "Get Latest Price") {
     product.price_range_min = 0
     product.price_range_max = 0
@@ -86,12 +85,19 @@ function get_rich_text() {
     if (img.length == 0) {
       var html = eles[i].outerHTML
       rich.txt.push(html)
-    } else {
-      for (var j = img.length - 1; j >= 0; j--) {
-        rich.imgs.push(img[j].src)
-      }
-    } 
+    }
   }
+
+  var imgs = div.find('noscript')
+  for (var i = imgs.length - 1; i >= 0; i--) {
+    var src = $(imgs[i].innerText).attr('src')
+    rich.imgs.push(src)
+  }
+    // } else {
+    //   for (var j = img.length - 1; j >= 0; j--) {
+    //     rich.imgs.push(img[j].src)
+    //   }
+    // } 
   return rich
 }
 

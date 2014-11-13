@@ -89,9 +89,8 @@ var product_upload = function(product) {
 }
 
 var push_img = function(url, name) {
-  console.log(url)
   var url = DOMAIN + 'push_img?url=' + url + '&name=' + name
-  // open_url(url)
+  open_url(url)
 }
 
 var DOMAIN = 'http://localhost:4567/'
